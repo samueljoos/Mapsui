@@ -12,15 +12,10 @@
   <ItemGroup>
     <ProjectReference Include="..\Mapsui.Geometries\Mapsui.Geometries.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
-  </ItemGroup>
-
   <PropertyGroup>
     <DebugType>full</DebugType>
     <PackageId>NotMapsui</PackageId>
     <PackageVersion>1.0.0</PackageVersion>
     <Description>Mapsui</Description>
   </PropertyGroup>
-
 </Project>
