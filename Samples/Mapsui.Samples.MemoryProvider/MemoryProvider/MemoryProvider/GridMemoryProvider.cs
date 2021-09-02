@@ -1,6 +1,5 @@
 ﻿using Mapsui.Geometries;
 using Mapsui.Providers;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -10,11 +9,12 @@ namespace MemoryProvider
 {
     public class GridMemoryProvider : IProvider
     {
-        private readonly double maxVisible;
+        private readonly double _maxVisible;
+        private static int _counter;
 
         public GridMemoryProvider(double maxVisible)
         {
-            this.maxVisible = maxVisible;
+            this._maxVisible = maxVisible;
         }
 
         public string CRS { get; set; }
@@ -26,19 +26,18 @@ namespace MemoryProvider
 
         public IEnumerable<IFeature> GetFeaturesInView(BoundingBox box, double resolution)
         {
-
-            if (!Double.IsNaN(box.Top) && resolution < maxVisible )
+            if (!double.IsNaN(box.Top) && resolution < _maxVisible )
             {
-                Debug.WriteLine("GetFeaturesInView called: " + box.ToString() + ": " + resolution);
-                var polys = new List<Polygon>();
-                var tiles = Tilebelt.GetTilesOnLevel(new double[] { box.MinX, box.MinY, box.MaxX, box.MaxY}, 14);
+                Debug.WriteLine($"GetFeaturesInView called ({_counter++}): " + box + ": " + resolution);
+                var polygons = new List<Polygon>();
+                var tiles = Tilebelt.GetTilesOnLevel(new [] { box.MinX, box.MinY, box.MaxX, box.MaxY}, 14);
                 foreach(var t in tiles)
                 {
                     var polygon = GetPolygon(t); 
-                    polys.Add(polygon);
+                    polygons.Add(polygon);
                 }
 
-                var selected = polys.Select(g => new Feature { Geometry = g }).ToList();
+                var selected = polygons.Select(g => new Feature { Geometry = g }).ToList();
                 return selected;
 
             }
