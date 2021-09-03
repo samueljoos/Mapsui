@@ -82,7 +82,8 @@ namespace Mapsui.UI.Forms
 
         public ISymbolCache SymbolCache => _renderer.SymbolCache;
 
-        public bool UseDoubleTap = true;
+        public bool UseDoubleTap { get; set; } = true;
+        public bool UseFling { get; set; } = false;
 
         public void Initialize()
         {
@@ -139,7 +140,7 @@ namespace Mapsui.UI.Forms
             else if (e.ActionType == SKTouchAction.Released && _touches.TryRemove(e.Id, out var releasedTouch))
             {
                 // Is this a fling or swipe?
-                if (_touches.Count == 0)
+                if (UseFling && _touches.Count == 0)
                 {
                     double velocityX;
                     double velocityY;
