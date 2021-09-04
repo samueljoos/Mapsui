@@ -25,11 +25,12 @@ namespace MemoryProvider
             var tileLayer = OpenStreetMap.CreateTileLayer();
 
             map.Layers.Add(tileLayer);
-            map.Layers.Add(CreateGridLayer("Grid", new Color(150, 150, 30, 64), new Color(252, 76, 2, 128), 40));
+            map.Layers.Add(CreateGridLayer("Grid", new Color(150, 150, 30, 64), new Color(252, 76, 2, 128), 200));
 
             map.Widgets.Add(new Mapsui.Widgets.ScaleBar.ScaleBarWidget(map) { TextAlignment = Mapsui.Widgets.Alignment.Center, HorizontalAlignment = Mapsui.Widgets.HorizontalAlignment.Left, VerticalAlignment = Mapsui.Widgets.VerticalAlignment.Bottom });
-
+            map.RotationLock = true;
             mapView.Map = map;
+            mapView.MyLocationEnabled = false;
             var transformation = new MinimalTransformation();
             var p1 = transformation.Transform("EPSG:4326", "EPSG:3857", new Mapsui.Geometries.Point(5, 50));
 
