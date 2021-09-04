@@ -140,24 +140,27 @@ namespace Mapsui.UI.Forms
             else if (e.ActionType == SKTouchAction.Released && _touches.TryRemove(e.Id, out var releasedTouch))
             {
                 // Is this a fling or swipe?
-                if (UseFling && _touches.Count == 0)
+                if (_touches.Count == 0)
                 {
                     double velocityX;
                     double velocityY;
 
                     (velocityX, velocityY) = _flingTracker.CalcVelocity(e.Id, ticks);
 
-                    if (Math.Abs(velocityX) > 200 || Math.Abs(velocityY) > 200)
+                    if (UseFling)
                     {
-                        // This was the last finger on screen, so this is a fling
-                        e.Handled = OnFlinged(velocityX, velocityY);
-                    }
+                        if (Math.Abs(velocityX) > 200 || Math.Abs(velocityY) > 200)
+                        {
+                            // This was the last finger on screen, so this is a fling
+                            e.Handled = OnFlinged(velocityX, velocityY);
+                        }
 
-                    // Do we have a tap event
-                    if (releasedTouch == null)
-                    {
-                        e.Handled = false;
-                        return;
+                        // Do we have a tap event
+                        if (releasedTouch == null)
+                        {
+                            e.Handled = false;
+                            return;
+                        }
                     }
 
                     // While tapping on screen, there could be a small movement of the finger
