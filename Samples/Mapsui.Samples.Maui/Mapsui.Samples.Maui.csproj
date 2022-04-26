@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net6.0-android31.0;net6.0-ios13.6;net6.0-maccatalyst13.5</TargetFrameworks>
+		<TargetFrameworks>net6.0-windows10.0.19041.0</TargetFrameworks>
     <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows')) and '$(MSBuildRuntimeType)' == 'Full'">$(TargetFrameworks);net6.0-windows10.0.19041</TargetFrameworks>
     <OutputType>Exe</OutputType>
     <RootNamespace>Mapsui.Samples.Maui</RootNamespace>
@@ -52,12 +52,16 @@
 
   <ItemGroup Condition="$(TargetFramework.Contains('-windows'))">
     <!-- Required - WinUI does not yet have buildTransitive for everything -->
-    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.0.1" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.0.3" />
     <PackageReference Include="Microsoft.Graphics.Win2D" Version="1.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <MauiAsset Remove="Resources\Raw\AboutAssets.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <MauiXaml Remove="Platforms\Windows\App.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -88,6 +92,19 @@
     <Compile Include="..\Mapsui.Samples.Forms\Mapsui.Samples.Forms.Shared\PolygonSample.cs" Link="PolygonSample.cs" />
     <Compile Include="..\Mapsui.Samples.Forms\Mapsui.Samples.Forms.Shared\PolylineSample.cs" Link="PolylineSample.cs" />
     <Compile Include="..\Mapsui.Samples.Forms\Mapsui.Samples.Forms.Shared\SnapshotSample.cs" Link="SnapshotSample.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ApplicationDefinition Update="Platforms\Windows\App.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </ApplicationDefinition>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Platforms\Windows\App.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
   </ItemGroup>
 
 	<!-- Required - WinUI can't deploy in a multi-targeting environment -->

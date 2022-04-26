@@ -1,9 +1,7 @@
-﻿using System.Runtime.Versioning;
+﻿using ObjCRuntime;
 using UIKit;
 
-[assembly: SupportedOSPlatform("iOS15.0")]
-
-namespace Mapsui.Samples.Maui
+namespace MauiApp1
 {
     public class Program
     {

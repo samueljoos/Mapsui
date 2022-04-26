@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<DefineConstants>__MAUI__</DefineConstants>
+		<UseMaui>true</UseMaui>
+
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove="C:\Users\pauld\source\repos\Mapsui\Mapsui\/InitProperty.cs" />
+	  <Compile Remove="C:\Users\pauld\source\repos\Mapsui\Mapsui\/Nullable.cs" />
+	</ItemGroup>
+
+
+
+	<ItemGroup>
+		<ProjectReference Include="..\Mapsui.Rendering.Skia\Mapsui.Rendering.Skia.csproj" />
+		<ProjectReference Include="..\Mapsui\Mapsui.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="SkiaSharp" Version="2.88.0-preview.254" />
+		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.0-preview.254" />
+		<PackageReference Include="SkiaSharp.Views.Maui.Controls.Compatibility" Version="2.88.0-preview.254" />
+	</ItemGroup>
+
+</Project>
